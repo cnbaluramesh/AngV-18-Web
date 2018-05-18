@@ -3,9 +3,8 @@ package com.anglia.login.controllers.autorizacija;
 import com.anglia.login.model.autorizacija.Autorizacija;
 import com.anglia.login.model.user.User;
 import com.anglia.login.service.autorizacija.AutorizacijaService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -15,13 +14,15 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
 @Controller
 @RequestMapping("/autorizacija")
 public class AutorizacijaController {
 
-    @Autowired
-    AutorizacijaService autorizacijaService;
+    private final AutorizacijaService autorizacijaService;
+
+    public AutorizacijaController(AutorizacijaService autorizacijaService) {
+        this.autorizacijaService = autorizacijaService;
+    }
 
     @GetMapping
     public String prikaziAutorizaciju(@ModelAttribute Autorizacija autorizacija, Model model, HttpSession s){
@@ -41,10 +42,17 @@ public class AutorizacijaController {
         return "redirect:/autorizacija";
     }
 
-    @DeleteMapping
-    public String izbrisiAutorizaciju(@ModelAttribute Autorizacija autorizacija){
-        autorizacijaService.delete(autorizacija);
-        return "redirect:/autorizacija";
+    @DeleteMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<Object> izbrisiAutorizaciju(@PathVariable Integer id){
+        autorizacijaService.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/show-delete-modal/{id}")
+    public String showDeleteAutorizacijaModal(@PathVariable Integer id, Model model) {
+        model.addAttribute("deleteAutorizacijaId", id);
+        return "autorizacija/delete-autorizacija-modal :: deleteAutorizacijaModal";
     }
 
     @GetMapping("/findOne/{id}")

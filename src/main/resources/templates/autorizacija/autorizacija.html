@@ -40,7 +40,8 @@
                 <td th:text="${a.nivoAutorizacije}">yes</td>
                 <td>
                     <a href="#"><i class="text-success fas fa-pencil-alt" id="eBtn" onclick="myFunction()" title="Izmjeni"></i></a>
-                    <a href="#deleteAutorizacijaModal" data-toggle="modal"><i class="text-danger fas fa-trash" data-toggle="tooltip" title="Izbriši"></i></a>
+                    <a href="#" data-toggle="modal"><i class="text-danger fas fa-trash"
+                                                       th:onclick="'showDeleteAutorizacija('+${a.autorizacijaId}+')'" data-toggle="tooltip" title="Izbriši"></i></a>
                 </td>
             </tr>
             </tbody>
@@ -114,26 +115,7 @@
     </div>
 </div>
 <!-- Delete Modal HTML -->
-<div id="deleteAutorizacijaModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form th:action="@{/autorizacija}" th:object="${autorizacija}" method="delete">
-                <div class="modal-header">
-                    <h4 class="modal-title">Izbriši Autorizaciju</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <h6 class="text-danger">Upozorenje!</h6>
-                    <p>Da li ste sigurni da želite da izbrištete ovaj zapis?</p>
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Odustani">
-                    <input type="submit" class="btn btn-danger" value="Izbriši">
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<div id="deleteAutorizacijaModalContainer"></div>
 
 
 <div th:replace="/scripts/scripts.html"></div>
