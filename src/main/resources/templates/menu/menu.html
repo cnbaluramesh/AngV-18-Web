@@ -1,0 +1,27 @@
+<!-- START OF MENU -->
+<nav class="navbar navbar-expand-sm navbar-light bg-light p-0">
+    <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <a href="#" class="navbar-brand">Meni</a>
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/home' ? 'active':''}">
+                <a class="nav-link" href="/home">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
+            </li>
+            <li class="nav-item"
+                th:classappend="${#httpServletRequest.getRequestURI() == '/autorizacija' ? 'active':''}">
+                <a class="nav-link" href="/autorizacija">
+                    <i class="fas fa-key"></i>
+                    Autorizacija
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- END OF MENU -->
